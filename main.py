@@ -547,48 +547,5 @@ async def aes(ctx):
       embed.add_field(name=name, value=key)
     await ctx.send(embed=embed)
 
-@slash.slash(name="login", description="login using your authcode")
-async def _help(ctx, *, auth=None):
-  if auth == None:
-    embed = discord.Embed(title="📲 Log in to your Epic Games account",
-                              url='https://www.epicgames.com/id/login?redirectUrl=https%3A%2F%2Fwww.epicgames.com%2Fid%2Fapi%2Fredirect%3FclientId%3D34a02cf8f4414e29b15921876da36f9a%26responseType%3Dcode',
-                              color=0x00aaff)
-    embed.add_field(name="Please Login Using The Info Below",
-                        value="1. Visit the link above to get your login code.\n2. Copy the 32 character code that looks like aabbccddeeff11223344556677889900, located after ?code=.\n3. Send /login <32 character code> to complete your Verifaction process.",
-                        inline=True)
-    await ctx.send(embed=embed)
-  else:
-    url = "https://account-public-service-prod.ol.epicgames.com/account/api/oauth/token"
-    payload = f'grant_type=authorization_code&code={auth}'
-    headers = {
-                'Authorization':
-                    'Basic MzRhMDJjZjhmNDQxNGUyOWIxNTkyMTg3NmRhMzZmOWE6ZGFhZmJjY2M3Mzc3NDUwMzlkZmZlNTNkOTRmYzc2Y2Y=',
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Cookie': 'EPIC_DEVICE=23b3996fb0b24d428e5404799c0f8b17'
-            }
-    response = requests.request("POST", url, headers=headers, data=payload)
-    if response.status_code != 200:
-                embed = discord.Embed(color=0xff0000)
-                discord.Embed(color=0xff0000)
-                embed.add_field(name="Failed",
-                                value="The Authorization Code Is Invalid Or Expired",
-                                inline=True)
-                await ctx.send(embed=embed)
-      
-    else:
-              await ctx.send(content="Successfully logged in!! ")
-              db[ctx.author.display_name + 'DN'] = response.json()['displayName']
-              db[ctx.author.display_name + 'id'] = response.json()['account_id']
-              db[ctx.author.display_name + 'TOKEN'] = response.json()['access_token']
-
-@slash.slash(name="who", description="shows who you are logged into!")
-async def who(ctx):
-  embed = discord.Embed(color=0xff0000)
-  discord.Embed(color=0xff0000)
-  embed.add_field(name="Who am i Logged into",
-                                value="you are logged into " + db[ctx.author.display_name + 'DN'] + "!",
-                                inline=True)
-  await ctx.send(embed=embed)
-
 keep_alive()
-client.run("MTAzNDM0NTgzOTg1NTk0MzY4MA.G7F6tl.xECBCV9Id6Xx7W5Xw9UYOw-7N6GsnMLYUKwrJQ"))
+client.run("MTAzNDM0NTgzOTg1NTk0MzY4MA.G7F6tl.xECBCV9Id6Xx7W5Xw9UYOw-7N6GsnMLYUKwrJQ")
