@@ -547,5 +547,5 @@ async def aes(ctx):
       embed.add_field(name=name, value=key)
     await ctx.send(embed=embed)
 
-keep_alive()
+#keep_alive()
 client.run("MTAzNDM0NTgzOTg1NTk0MzY4MA.G7F6tl.xECBCV9Id6Xx7W5Xw9UYOw-7N6GsnMLYUKwrJQ")
